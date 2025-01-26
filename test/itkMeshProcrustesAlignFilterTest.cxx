@@ -30,8 +30,8 @@ int itkMeshProcrustesAlignFilterTest(int argc, char* argv[])
     }
 
     const int Dimension = 3;
-    using CoordRepType = double;
-    using MeshType = itk::Mesh<CoordRepType, Dimension>;
+    using CoordinateType = double;
+    using MeshType = itk::Mesh<CoordinateType, Dimension>;
     
     // Read in meshes
     using ReaderType = itk::MeshFileReader<MeshType>;
