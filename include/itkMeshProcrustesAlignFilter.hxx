@@ -42,7 +42,8 @@ MeshProcrustesAlignFilter<TInputMesh, TOutputMesh>::~MeshProcrustesAlignFilter()
 {}
 
 template <class TInputMesh, class TOutputMesh>
-typename itk::ProcessObject::DataObjectPointer MeshProcrustesAlignFilter<TInputMesh, TOutputMesh>::MakeOutput(
+typename itk::ProcessObject::DataObjectPointer
+MeshProcrustesAlignFilter<TInputMesh, TOutputMesh>::MakeOutput(
   itk::ProcessObject::DataObjectPointerArraySizeType /* idx */)
 {
   return static_cast<itk::ProcessObject::DataObjectPointer>(TOutputMesh::New().GetPointer());
@@ -229,16 +230,16 @@ MeshProcrustesAlignFilter<TInputMesh, TOutputMesh>::GetProcrustesMatch(unsigned 
     i++;
   }
   // do procrustes matching
-  MatrixType            x1 = target * source / (target.fro_norm() * source.fro_norm());
+  MatrixType              x1 = target * source / (target.fro_norm() * source.fro_norm());
   vnl_svd<CoordinateType> svd(x1);
-  MatrixType            postTrans = svd.V() * svd.U().transpose();
-  MatrixType            x2 = target * source * postTrans;
+  MatrixType              postTrans = svd.V() * svd.U().transpose();
+  MatrixType              x2 = target * source * postTrans;
   CoordinateType          x2Trace = 0;
   for (unsigned int i_ = 0; i_ < x2.rows(); i_++)
   {
     x2Trace += x2[i_][i_];
   }
-  MatrixType   x3 = source.transpose() * source;
+  MatrixType     x3 = source.transpose() * source;
   CoordinateType x3Trace = 0;
   for (unsigned int i_ = 0; i_ < x3.rows(); i_++)
   {
